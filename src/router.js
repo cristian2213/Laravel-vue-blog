@@ -5,6 +5,8 @@ import Register from './views/Register.vue';
 import NotFound from './views/NotFound.vue';
 import Landing from './views/Landing.vue';
 import Components from './views/Components.vue';
+import Blog from './views/Blog.vue';
+import Profile from './views/Profile.vue';
 
 Vue.use(Router);
 
@@ -16,6 +18,7 @@ export default new Router({
 
     { path: '/components', component: Components },
     { path: '/landing', component: Landing },
+    { path: '/profile', component: Profile },
 
     {
       path: '/login',
@@ -27,6 +30,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register,
+    },
+
+    {
+      path: '/blog',
+      name: 'blog',
+      component: Blog,
     },
 
     { path: '/:notFound(.*)', component: NotFound },

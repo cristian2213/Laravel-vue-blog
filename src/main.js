@@ -15,15 +15,18 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import Argon from "./plugins/argon-kit";
-import './registerServiceWorker'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import Argon from './plugins/argon-kit';
+import CKEditor from 'ckeditor4-vue';
+import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
+Vue.use(CKEditor);
+
 new Vue({
   router,
-  render: h => h(App)
-}).$mount("#app");
+  render: (h) => h(App),
+}).$mount('#app');
