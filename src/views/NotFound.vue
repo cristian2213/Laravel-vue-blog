@@ -19,13 +19,19 @@
       />
       <h1>404 Error</h1>
       <p>Page Not Found</p>
-      <router-link to="/" class="link">Ir al Home</router-link>
+      <a to="#" class="link" @click="returnUrl">Return</a>
     </div>
   </section>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    returnUrl() {
+      return this.$router.go(-1);
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -53,5 +59,11 @@ export default {};
 
 .main-notfound > .link {
   color: rgb(9, 114, 175);
+  cursor: pointer;
+  transition: color 300ms ease-in;
+}
+
+.main-notfound > .link:hover {
+  color: rgb(6, 155, 241);
 }
 </style>
