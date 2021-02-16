@@ -19,12 +19,15 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import Argon from './plugins/argon-kit';
-import CKEditor from 'ckeditor4-vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import store from './store/index.js';
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
-Vue.use(CKEditor);
+Vue.use(VueAxios, axios);
+Vue.use(store);
 
 new Vue({
   router,
