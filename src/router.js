@@ -23,6 +23,7 @@ export default new Router({
       component: Login,
       meta: { needsAuth: true },
     },
+
     {
       path: '/register',
       name: 'register',

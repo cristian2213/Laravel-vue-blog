@@ -15,15 +15,23 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import Argon from "./plugins/argon-kit";
-import './registerServiceWorker'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import Argon from './plugins/argon-kit';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+import store from './store/index.js';
+
+import './registerServiceWorker';
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
+Vue.use(VueAxios, axios);
+Vue.use(store);
+
 new Vue({
   router,
-  render: h => h(App)
-}).$mount("#app");
+  render: (h) => h(App),
+}).$mount('#app');
