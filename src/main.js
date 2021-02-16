@@ -1,5 +1,4 @@
 /*!
-
 =========================================================
 * Vue Argon Design System - v1.1.0
 =========================================================
@@ -13,16 +12,20 @@
 =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 */
-import Vue from 'vue';
+
+import Vue from 'vue'; // vue config
 import App from './App.vue';
-import router from './router';
+
+// template config
 import Argon from './plugins/argon-kit';
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-import store from './store/index.js';
 import './registerServiceWorker';
+
+// my dependencies to build the application
+import router from './router';
+import axios from 'axios'; //to replace to jquery ajax
+import VueAxios from 'vue-axios';
+import store from './store/index.js'; // to save local data
 
 Vue.config.productionTip = false;
 Vue.use(Argon);
