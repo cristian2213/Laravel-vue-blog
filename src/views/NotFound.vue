@@ -19,7 +19,7 @@
       />
       <h1>404 Error</h1>
       <p>Page Not Found</p>
-      <a to="#" class="link" @click="returnUrl">Return</a>
+      <a to="#" class="link" @click="returnUrl">Back</a>
     </div>
   </section>
 </template>

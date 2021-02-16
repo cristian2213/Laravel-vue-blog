@@ -28,6 +28,7 @@
     <slot v-bind="slotData">
       <input
         :value="value"
+        v-on="listeners"
         v-bind="$attrs"
         class="form-control"
         :class="[
@@ -113,12 +114,13 @@ export default {
   computed: {
     listeners() {
       return {
-        //...this.$listeners,
-        //input: this.updateValue,
+        ...this.$listeners,
+        input: this.updateValue,
         //focus: this.onFocus,
         //blur: this.onBlur,
       };
     },
+
     slotData() {
       return {
         focused: this.focused,
@@ -136,9 +138,8 @@ export default {
     },
   },
   methods: {
-    updateValue(evt) {
-      let value = evt.target.value;
-
+    updateValue(event) {
+      let value = event.target.value;
       this.$emit("input", value);
     },
     onFocus(value) {
