@@ -58,8 +58,9 @@ router.beforeEach((to, from, next) => {
   // validation to let access to the blog route
   if (to.meta.needsAuth && to.name === 'blog') {
     const jwt = JSON.parse(localStorage.getItem('JeXAitsi')); // token name
-    //* validate that the token and role exist
+
     /**
+     ** validate that the token and role exist
      * jwt.XRoXC9.C8xMjcuMC: rol
      * jwt.wNzkxLCJu: toke type
      * jwt.TYxMzU0: toke
