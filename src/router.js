@@ -10,7 +10,7 @@ import Profile from './views/Profile.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
 
   routes: [
@@ -24,7 +24,6 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login,
-      meta: { needsAuth: true },
     },
 
     {
@@ -37,6 +36,7 @@ export default new Router({
       path: '/blog',
       name: 'blog',
       component: Blog,
+      meta: { needsAuth: true },
     },
 
     { path: '/:notFound(.*)', component: NotFound },
@@ -52,3 +52,16 @@ export default new Router({
     }
   },
 });
+
+router.beforeEach((to, from, next) => {
+  // validation to let access to the blog route
+  if (to.meta.needsAuth && to.name === 'blog') {
+    const jwt = JSON.parse(localStorage.getItem('token')); // token
+    // validate that the token and role exist
+    if (jwt && jwt.user.rol === 'User') {
+      next();
+    } else next({ name: 'login' });
+  } else next();
+});
+
+export default router;

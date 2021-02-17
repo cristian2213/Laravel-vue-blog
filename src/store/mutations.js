@@ -12,7 +12,7 @@ export default {
       token: state.token.access_token,
       user: {
         name: state.user.name,
-        rol: state.user.roles[0].guard_name,
+        rol: state.user.roles[0].name,
       },
     };
     localStorage.setItem('token', JSON.stringify(token));
