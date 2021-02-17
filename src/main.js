@@ -30,9 +30,9 @@ import store from './store/index.js'; // to save local data
 Vue.config.productionTip = false;
 Vue.use(Argon);
 Vue.use(VueAxios, axios);
-Vue.use(store);
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

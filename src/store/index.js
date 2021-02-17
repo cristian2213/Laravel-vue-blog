@@ -9,7 +9,8 @@ import rootGetters from './getters';
 
 const store = new Vuex.Store({
   state: {
-    count: 1,
+    token: null,
+    user: null,
   },
   mutations: rootMutations,
   actions: rootActions,

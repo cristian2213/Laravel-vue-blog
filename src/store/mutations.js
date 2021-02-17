@@ -1,3 +1,9 @@
 export default {
-  addToken() {},
+  setToken(state, payload) {
+    state.token = payload;
+  },
+
+  setUser(state, payload) {
+    state.user = payload;
+  },
 };

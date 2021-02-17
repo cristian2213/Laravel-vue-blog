@@ -11,6 +11,7 @@ import BaseSlider from '../components/BaseSlider';
 import BaseSwitch from '../components/BaseSwitch';
 import Card from '../components/Card';
 import Icon from '../components/Icon';
+import MainBackground from '../components/MainBackground';
 
 export default {
   install(Vue) {
@@ -18,6 +19,7 @@ export default {
     Vue.component(BaseAlert.name, BaseAlert);
     Vue.component(BaseButton.name, BaseButton);
     Vue.component(BaseButtonLogin.name, BaseButtonLogin);
+    Vue.component(MainBackground.name, MainBackground);
     Vue.component(BaseInput.name, BaseInput);
     Vue.component(BaseCheckbox.name, BaseCheckbox);
     Vue.component(BasePagination.name, BasePagination);

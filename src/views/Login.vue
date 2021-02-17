@@ -1,15 +1,8 @@
 <template>
   <section class="section section-shaped section-lg my-0">
-    <div class="shape shape-style-1 bg-gradient-default">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <!-- main background -->
+    <main-background></main-background>
+
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
         <div class="col-lg-5">
@@ -31,8 +24,9 @@
                 <base-input
                   :valid="loginInvalid.email.error"
                   :error="loginInvalid.email.message"
-                  @input="loadValueEmail"
+                  @keyup="loadValueEmail"
                   :value="login.email"
+                  name="email"
                   alternative
                   class="mb-3"
                   placeholder="Email"
@@ -44,7 +38,8 @@
                   :valid="loginInvalid.password.error"
                   :error="loginInvalid.password.message"
                   :value="login.password"
-                  @input="loadValuePass"
+                  @keyup="loadValuePass"
+                  name="password"
                   alternative
                   type="password"
                   placeholder="Password"
@@ -95,77 +90,94 @@ export default {
         email: {
           error: null,
           message: "",
+          validated: null,
         },
         password: {
           error: null,
           message: "",
+          validated: null,
         },
       },
-    };
-  },
 
-  async created() {
-    // const response = await this.axios({
-    //   method: "post",
-    //   url: "http://localhost:4000/api/auth",
-    //   headers: { "Content-Type": "application/json" },
-    //   data: {
-    //     email: "admin@admin.com",
-    //     password: "admin1",
-    //   },
-    // });
-    // console.log(response.data);
+      error: "",
+
+      emailRegex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+
+      passRegex: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$/,
+    };
   },
 
   methods: {
     loadValueEmail(valueEmail) {
-      this.login.email = valueEmail;
+      this.login.email = valueEmail.target.value;
+      this.validateFields(valueEmail);
     },
 
     loadValuePass(valuePass) {
-      this.login.password = valuePass;
+      this.login.password = valuePass.target.value;
+      this.validateFields(valuePass);
     },
 
-    handlerSubmit() {
-      this.validateFields();
-      // go past data to the store
-    },
-
-    validateFields() {
+    validateFields(valueEmail) {
       //* validate each field with regex
       /* 
         Contraseña incorrecta: debe tener entre 6 y 16 caracteres, al menos un digito, una minúscula, una mayuscula. 
       */
-      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      const passRegex = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,16}$/;
 
-      if (!emailRegex.test(this.login.email)) {
-        // show error
-        this.loginInvalid.email.error = false;
-        this.loginInvalid.email.message = "Please write a valid email";
-      } else {
-        // clean bug
-        this.loginInvalid.email.error = true;
-        this.loginInvalid.email.message = "";
-      }
+      switch (valueEmail.target.name) {
+        case "email":
+          if (!this.emailRegex.test(this.login.email)) {
+            // show error
+            this.loginInvalid.email.error = false;
+            this.loginInvalid.email.message = "Please write a valid email";
+            this.loginInvalid.email.validated = false;
+          } else {
+            // clean bug
+            this.loginInvalid.email.error = true;
+            this.loginInvalid.email.message = "";
+            this.loginInvalid.email.validated = true;
+          }
+          break;
 
-      if (!passRegex.test(this.login.password)) {
-        // show error
-        this.loginInvalid.password.error = false;
-        this.loginInvalid.password.message =
-          "Incorrect password: it must have between 6 and 16 characters, at least one digit, one lower case, one upper case";
-      } else {
-        // clean bug
-        this.loginInvalid.password.error = true;
-        this.loginInvalid.password.message = "";
+        default:
+          if (!this.passRegex.test(this.login.password)) {
+            // show error
+            this.loginInvalid.password.error = false;
+            this.loginInvalid.password.message =
+              "Incorrect password: it must have between 6 and 16 characters, at least one digit, one lower case, one upper case";
+            this.loginInvalid.password.validated = false;
+          } else {
+            // clean bug
+            this.loginInvalid.password.error = true;
+            this.loginInvalid.password.message = "";
+            this.loginInvalid.password.validated = true;
+          }
+          break;
       }
+    },
+
+    validateAll() {
+      if (
+        !this.loginInvalid.password.validated &&
+        !this.loginInvalid.email.validated
+      ) {
+        this.error = "All fields are required";
+        return;
+      }
+    },
+
+    handlerSubmit() {
+      this.validateAll();
+      // go past data to the store
+      this.$store.dispatch("setToken", this.login);
     },
   },
 };
 </script>
 <style scoped>
 .section {
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
 }
 
 .login-title {
