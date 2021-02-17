@@ -8,11 +8,13 @@
         <div class="col-lg-5">
           <base-alert
             v-if="error.show"
-            type="danger"
+            type="warning"
             icon="ni ni-support-16"
             dismissible
           >
-            <span slot="text"><strong>Danger!</strong>{{ error.message }}</span>
+            <span slot="text"
+              ><strong>¡Warning! </strong>{{ error.message }}</span
+            >
           </base-alert>
 
           <card
@@ -76,9 +78,9 @@
               </a>
             </div>
             <div class="col-6 text-right">
-              <a href="#" class="text-light">
+              <router-link :to="{ name: 'register' }" class="text-light">
                 <small>Create new account</small>
-              </a>
+              </router-link>
             </div>
           </div>
         </div>
@@ -182,10 +184,19 @@ export default {
       }
     },
 
-    handlerSubmit() {
+    async handlerSubmit() {
+      // check that all fields was validated
       this.validateAll();
+
       // go past data to the store
-      this.$store.dispatch("setToken", this.login);
+      try {
+        await this.$store.dispatch("setToken", this.login);
+
+        // redirect to the blog route
+        this.$router.push({ name: "blog" });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

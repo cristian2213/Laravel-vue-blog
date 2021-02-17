@@ -7,6 +7,7 @@ import Landing from './views/Landing.vue';
 import Components from './views/Components.vue';
 import Blog from './views/Blog.vue';
 import Profile from './views/Profile.vue';
+import tokenAuth from './config/tokenAuth.js';
 
 Vue.use(Router);
 
@@ -56,11 +57,22 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // validation to let access to the blog route
   if (to.meta.needsAuth && to.name === 'blog') {
-    const jwt = JSON.parse(localStorage.getItem('token')); // token
-    // validate that the token and role exist
-    if (jwt && jwt.user.rol === 'User') {
+    const jwt = JSON.parse(localStorage.getItem('JeXAitsi')); // token name
+    //* validate that the token and role exist
+    /**
+     * jwt.XRoXC9.C8xMjcuMC: rol
+     * jwt.wNzkxLCJu: toke type
+     * jwt.TYxMzU0: toke
+     */
+    if (jwt && jwt.XRoXC9.C8xMjcuMC === 'User') {
+      // add token to headers
+      tokenAuth(jwt.wNzkxLCJu, jwt.TYxMzU0);
       next();
-    } else next({ name: 'login' });
+    } else {
+      // delete token from headers
+      tokenAuth(false, false);
+      next({ name: 'login' });
+    }
   } else next();
 });
 

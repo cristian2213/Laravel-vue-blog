@@ -9,12 +9,14 @@ export default {
 
   addTokenLocalStorage(state) {
     const token = {
-      token: state.token.access_token,
-      user: {
-        name: state.user.name,
-        rol: state.user.roles[0].name,
+      TYxMzU0: state.token.access_token, // token with alias to security
+      wNzkxLCJu: state.token.token_type, // token type
+      XRoXC9: {
+        // user
+        E6ODAwMF: state.user.name, // name user
+        C8xMjcuMC: state.user.roles[0].name, // rol user
       },
     };
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('JeXAitsi', JSON.stringify(token));
   },
 };
