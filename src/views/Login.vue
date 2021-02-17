@@ -180,22 +180,34 @@ export default {
         setTimeout(() => {
           this.error.show = false;
         }, 3000);
-        return;
+        return true;
       }
+
+      if (!this.loginInvalid.password.validated) {
+        return true;
+      }
+
+      if (!this.loginInvalid.email.validated) {
+        return true;
+      }
+
+      return false;
     },
 
     async handlerSubmit() {
       // check that all fields was validated
-      this.validateAll();
+      const error = this.validateAll();
 
-      // go past data to the store
-      try {
-        await this.$store.dispatch("setToken", this.login);
+      if (!error) {
+        try {
+          // go past data to the store
+          await this.$store.dispatch("setToken", this.login);
 
-        // redirect to the blog route
-        this.$router.push({ name: "blog" });
-      } catch (error) {
-        console.log(error);
+          // redirect to the blog route
+          this.$router.push({ name: "blog" });
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   },

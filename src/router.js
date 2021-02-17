@@ -54,6 +54,7 @@ const router = new Router({
   },
 });
 
+// Guardian
 router.beforeEach((to, from, next) => {
   // validation to let access to the blog route
   if (to.meta.needsAuth && to.name === 'blog') {
