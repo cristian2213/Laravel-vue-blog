@@ -10,8 +10,9 @@ export default {
 
       const response = await clientAxios.post('auth/login', info);
 
-      context.commit('setToken', response.data.token);
-      context.commit('setUser', response.data.user);
+      context.commit('setToken', response.data.token); // set property token
+      context.commit('setUser', response.data.user); // set property user
+      context.commit('addTokenLocalStorage'); // add token to the Local Storage
     } catch (error) {
       console.log('2', error);
       // execute mutation to show an error

@@ -3,7 +3,7 @@ export default {
     return state.token;
   },
 
-  hasToken() {
+  hasToken(state) {
     return state.token ? true : false;
   },
 };
