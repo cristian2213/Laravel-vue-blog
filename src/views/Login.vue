@@ -6,6 +6,15 @@
     <div class="container pt-lg-md">
       <div class="row justify-content-center">
         <div class="col-lg-5">
+          <base-alert
+            v-if="error.show"
+            type="danger"
+            icon="ni ni-support-16"
+            dismissible
+          >
+            <span slot="text"><strong>Danger!</strong>{{ error.message }}</span>
+          </base-alert>
+
           <card
             type="secondary"
             shadow
@@ -99,7 +108,10 @@ export default {
         },
       },
 
-      error: "",
+      error: {
+        show: false,
+        message,
+      },
 
       emailRegex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
@@ -161,7 +173,8 @@ export default {
         !this.loginInvalid.password.validated &&
         !this.loginInvalid.email.validated
       ) {
-        this.error = "All fields are required";
+        this.error.show = true;
+        this.error.message = "All fields are required";
         return;
       }
     },
