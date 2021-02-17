@@ -110,7 +110,7 @@ export default {
 
       error: {
         show: false,
-        message,
+        message: "",
       },
 
       emailRegex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -175,6 +175,9 @@ export default {
       ) {
         this.error.show = true;
         this.error.message = "All fields are required";
+        setTimeout(() => {
+          this.error.show = false;
+        }, 3000);
         return;
       }
     },
@@ -187,6 +190,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .section {
   height: auto;
