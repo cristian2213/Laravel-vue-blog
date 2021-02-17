@@ -1,20 +1,14 @@
-import axios from 'axios';
+import clientAxios from '../config/axios.js';
 
 export default {
   async setToken(context, payload) {
-    const uri = process.env.VUE_APP_ROUTE_API;
-
     try {
       const info = {
         email: payload.email,
         password: payload.password,
       };
 
-      const response = await axios({
-        method: 'post',
-        url: uri + 'auth/login',
-        data: info,
-      });
+      const response = await clientAxios.post('auth/login', info);
 
       context.commit('setToken', response.data.token);
       context.commit('setUser', response.data.user);

@@ -121,12 +121,12 @@ export default {
 
   methods: {
     loadValueEmail(valueEmail) {
-      this.login.email = valueEmail.target.value;
+      this.login.email = valueEmail.target.value.trim();
       this.validateFields(valueEmail);
     },
 
     loadValuePass(valuePass) {
-      this.login.password = valuePass.target.value;
+      this.login.password = valuePass.target.value.trim();
       this.validateFields(valuePass);
     },
 
